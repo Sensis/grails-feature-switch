@@ -6,6 +6,9 @@ grails.project.target.level = 1.7
 
 grails.release.scm.enabled = false
 
+grails.project.repos.nexus.url = "http://maven.sensis.com.au:8081/nexus/content/repositories/sensis"
+grails.project.repos.default = "nexus"
+
 grails.project.dependency.resolution = {
 
     def spockVersion = "0.6"
