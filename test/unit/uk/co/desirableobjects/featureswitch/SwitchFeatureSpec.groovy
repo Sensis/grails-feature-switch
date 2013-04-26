@@ -94,14 +94,10 @@ class SwitchFeatureSpec extends Specification {
             service.grailsApplication.config.features.eggs.enabled = !enabled
         expect:
             service.hasFeature('eggs', ['eggs': enabled]) == enabled
+        and:
+            new InnocentClass().testWithOverride(enabled)
         where:
             enabled << [true, false]
-    }
-
-    def "user can override closure version of feature switch" () {
-        expect:
-            new InnocentClass().testWithOverride()
-            new InnocentClass().testWithoutOverride() == false
     }
 
 }
