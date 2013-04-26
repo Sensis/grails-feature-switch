@@ -18,7 +18,7 @@ class FeatureSwitchService {
     }
 
     private executeFeatureConditionally(String feature, boolean condition, Closure closure, overrides) {
-        if (hasFeature(feature) == condition) {
+        if (hasFeature(feature, overrides) == condition) {
             closure()
         }
     }
