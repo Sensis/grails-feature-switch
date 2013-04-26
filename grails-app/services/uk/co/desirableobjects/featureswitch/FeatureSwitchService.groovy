@@ -8,28 +8,23 @@ class FeatureSwitchService {
 
     GrailsApplication grailsApplication
 
-    boolean hasFeature(String feature) {
-
-        return grailsApplication.config.features[feature] && grailsApplication.config.features[feature].enabled
-
+    boolean hasFeature(String feature, Map<String, Boolean> overrides = [:]) {
+        return overrides.containsKey(feature) ? overrides[feature] :
+            (grailsApplication.config.features[feature] && grailsApplication.config.features[feature].enabled)
     }
 
-    def withFeature(String feature, Closure closure) {
-
-        executeFeatureConditionally(feature, true, closure)
-
+    def withFeature(String feature, Closure closure, overrides = [:]) {
+        executeFeatureConditionally(feature, true, closure, overrides)
     }
 
-    private executeFeatureConditionally(String feature, boolean condition, Closure closure) {
+    private executeFeatureConditionally(String feature, boolean condition, Closure closure, overrides) {
         if (hasFeature(feature) == condition) {
             closure()
         }
     }
 
-    def withoutFeature(String feature, Closure closure) {
-
-        executeFeatureConditionally(feature, false, closure)
-
+    def withoutFeature(String feature, Closure closure, overrides = [:]) {
+        executeFeatureConditionally(feature, false, closure, overrides)
     }
 
 }
